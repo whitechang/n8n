@@ -107,7 +107,7 @@ import { useUniqueNodeName } from '@/composables/useUniqueNodeName';
 import { isPresent } from '../utils/typesUtils';
 import { useProjectsStore } from '@/stores/projects.store';
 import type { CanvasLayoutEvent } from './useCanvasLayout';
-import { chatEventBus } from '@n8n/chat/event-buses';
+// chatEventBus removed
 import { useLogsStore } from '@/stores/logs.store';
 import { isChatNode } from '@/utils/aiUtils';
 import cloneDeep from 'lodash/cloneDeep';
@@ -2193,9 +2193,7 @@ export function useCanvasOperations() {
 		void externalHooks.run('nodeView.onOpenChat', payload);
 		telemetry.track('User clicked chat open button', payload);
 
-		setTimeout(() => {
-			chatEventBus.emit('focusInput');
-		}, 0);
+		// Chat input focus removed
 	}
 
 	async function importTemplate({

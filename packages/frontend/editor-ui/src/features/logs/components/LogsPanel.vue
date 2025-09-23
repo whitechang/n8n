@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { nextTick, computed, useTemplateRef, ref } from 'vue';
 import { N8nResizeWrapper } from '@n8n/design-system';
-import { useChatState } from '@/features/logs/composables/useChatState';
 import LogsOverviewPanel from '@/features/logs/components/LogsOverviewPanel.vue';
-import ChatMessagesPanel from '@/features/logs/components/ChatMessagesPanel.vue';
 import LogsDetailsPanel from '@/features/logs/components/LogDetailsPanel.vue';
 import LogsPanelActions from '@/features/logs/components/LogsPanelActions.vue';
 import { useLogsExecutionData } from '@/features/logs/composables/useLogsExecutionData';
@@ -29,7 +27,7 @@ const ndvStore = useNDVStore();
 
 const {
 	height,
-	chatPanelWidth,
+	// chatPanelWidth removed,
 	overviewPanelWidth,
 	canPopOut,
 	isOpen,
@@ -41,22 +39,15 @@ const {
 	onResizeEnd,
 	onToggleOpen,
 	onPopOut,
-	onChatPanelResize,
-	onChatPanelResizeEnd,
+	// onChatPanelResize removed,
+	// onChatPanelResizeEnd removed,
 	onOverviewPanelResize,
 	onOverviewPanelResizeEnd,
 } = useLogsPanelLayout(pipContainer, pipContent, container, logsContainer);
 
-const {
-	currentSessionId,
-	messages,
-	previousChatMessages,
-	sendMessage,
-	refreshSession,
-	displayExecution,
-} = useChatState(props.isReadOnly);
+// Chat functionality removed
 
-const { entries, execution, hasChat, latestNodeNameById, resetExecutionData, loadSubExecution } =
+const { entries, execution, latestNodeNameById, resetExecutionData, loadSubExecution } =
 	useLogsExecutionData();
 const { flatLogEntries, toggleExpanded } = useLogsTreeExpand(entries, loadSubExecution);
 const { selected, select, selectNext, selectPrev } = useLogsSelection(
@@ -154,34 +145,7 @@ function handleChangeOutputTableColumnCollapsing(columnName: string | null) {
 				@resizeend="onResizeEnd"
 			>
 				<div ref="container" :class="$style.container" tabindex="-1">
-					<N8nResizeWrapper
-						v-if="hasChat && (!props.isReadOnly || messages.length > 0)"
-						:supported-directions="['right']"
-						:is-resizing-enabled="isOpen"
-						:width="chatPanelWidth"
-						:style="{ width: `${chatPanelWidth}px` }"
-						:class="$style.chat"
-						:window="pipWindow"
-						@resize="onChatPanelResize"
-						@resizeend="onChatPanelResizeEnd"
-					>
-						<ChatMessagesPanel
-							:key="`canvas-chat-${currentSessionId}${isPoppedOut ? '-pip' : ''}`"
-							data-test-id="canvas-chat"
-							:is-open="isOpen"
-							:is-read-only="isReadOnly"
-							:messages="messages"
-							:session-id="currentSessionId"
-							:past-chat-messages="previousChatMessages"
-							:show-close-button="false"
-							:is-new-logs-enabled="true"
-							@close="onToggleOpen"
-							@refresh-session="refreshSession"
-							@display-execution="displayExecution"
-							@send-message="sendMessage"
-							@click-header="onToggleOpen(true)"
-						/>
-					</N8nResizeWrapper>
+					<!-- Chat panel removed -->
 					<div ref="logsContainer" :class="$style.logsContainer">
 						<N8nResizeWrapper
 							:class="$style.overviewResizer"

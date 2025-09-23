@@ -16,7 +16,7 @@ import {
 import type { LogEntry, LogEntrySelection, LogTreeCreationContext } from './logs.types';
 import { isProxy, isReactive, isRef, toRaw } from 'vue';
 import { CHAT_TRIGGER_NODE_TYPE, MANUAL_CHAT_TRIGGER_NODE_TYPE } from '@/constants';
-import { type ChatMessage } from '@n8n/chat/types';
+// ChatMessage type removed
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import { v4 as uuid } from 'uuid';
@@ -498,30 +498,7 @@ export function getInputKey(node: INodeUi): string {
 	return 'chatInput';
 }
 
-function extractChatInput(
-	workflow: IWorkflowDb,
-	resultData: IRunExecutionData['resultData'],
-): ChatMessage | undefined {
-	const chatTrigger = workflow.nodes.find(isChatNode);
-
-	if (chatTrigger === undefined) {
-		return undefined;
-	}
-
-	const inputKey = getInputKey(chatTrigger);
-	const runData = (resultData.runData[chatTrigger.name] ?? [])[0];
-	const message = runData?.data?.[NodeConnectionTypes.Main]?.[0]?.[0]?.json?.[inputKey];
-
-	if (runData === undefined || typeof message !== 'string') {
-		return undefined;
-	}
-
-	return {
-		text: message,
-		sender: 'user',
-		id: uuid(),
-	};
-}
+// extractChatInput function removed
 
 export function extractBotResponse(
 	resultData: IRunExecutionData['resultData'],
@@ -578,26 +555,7 @@ function extractResponseText(responseData?: IDataObject): string | undefined {
 	return matchedOutput?.toString() ?? '';
 }
 
-export function restoreChatHistory(
-	workflowExecutionData: IExecutionResponse | null,
-	emptyText?: string,
-): ChatMessage[] {
-	if (!workflowExecutionData?.data) {
-		return [];
-	}
-
-	const userMessage = extractChatInput(
-		workflowExecutionData.workflowData,
-		workflowExecutionData.data.resultData,
-	);
-	const botMessage = extractBotResponse(
-		workflowExecutionData.data.resultData,
-		workflowExecutionData.id,
-		emptyText,
-	);
-
-	return [...(userMessage ? [userMessage] : []), ...(botMessage ? [botMessage] : [])];
-}
+// restoreChatHistory function removed
 
 export function isSubNodeLog(logEntry: LogEntry): boolean {
 	return logEntry.parent !== undefined && logEntry.parent.executionId === logEntry.executionId;

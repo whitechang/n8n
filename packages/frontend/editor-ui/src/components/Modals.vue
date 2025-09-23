@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {
 	ABOUT_MODAL_KEY,
-	CHAT_EMBED_MODAL_KEY,
 	CHANGE_PASSWORD_MODAL_KEY,
 	COMMUNITY_PACKAGE_CONFIRM_MODAL_KEY,
 	COMMUNITY_PACKAGE_INSTALL_MODAL_KEY,
@@ -43,7 +42,6 @@ import {
 } from '@/constants';
 
 import AboutModal from '@/components/AboutModal.vue';
-import ChatEmbedModal from '@/components/ChatEmbedModal.vue';
 import CommunityPackageManageConfirmModal from '@/components/CommunityPackageManageConfirmModal.vue';
 import CommunityPackageInstallModal from '@/components/CommunityPackageInstallModal.vue';
 import ChangePasswordModal from '@/components/ChangePasswordModal.vue';
@@ -114,9 +112,7 @@ import type { EventBus } from '@n8n/utils/event-bus';
 			<AboutModal />
 		</ModalRoot>
 
-		<ModalRoot :name="CHAT_EMBED_MODAL_KEY">
-			<ChatEmbedModal />
-		</ModalRoot>
+		<!-- Chat embed modal removed -->
 
 		<ModalRoot :name="CREDENTIAL_SELECT_MODAL_KEY">
 			<CredentialsSelectModal />
