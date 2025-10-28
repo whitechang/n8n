@@ -1,0 +1,80 @@
+[
+	{
+		"description": "强大的文本处理算子，支持多种文本操作",
+		"input_schema": {
+			"properties": {
+				"case_sensitive": {
+					"default": true,
+					"description": "大小写敏感",
+					"type": "boolean"
+				},
+				"find_replace": {
+					"description": "查找替换配置",
+					"properties": {
+						"find": {
+							"description": "要查找的文本",
+							"type": "string"
+						},
+						"replace": {
+							"description": "替换为的文本",
+							"type": "string"
+						},
+						"use_regex": {
+							"default": false,
+							"description": "是否使用正则表达式",
+							"type": "boolean"
+						}
+					},
+					"type": "object"
+				},
+				"operations": {
+					"default": ["uppercase"],
+					"description": "要执行的操作列表",
+					"items": {
+						"enum": [
+							"uppercase",
+							"lowercase",
+							"title",
+							"reverse",
+							"word_count",
+							"char_count",
+							"line_count"
+						]
+					},
+					"type": "array"
+				},
+				"text": {
+					"default": "Hello, World!",
+					"description": "要处理的文本",
+					"type": "string"
+				}
+			},
+			"required": ["text"],
+			"type": "object"
+		},
+		"name": "text_processor",
+		"output_schema": {
+			"properties": {
+				"operations_applied": {
+					"description": "已应用的操作",
+					"type": "array"
+				},
+				"processed_text": {
+					"description": "处理后的文本",
+					"type": "string"
+				},
+				"replacements_made": {
+					"description": "替换次数",
+					"type": "integer"
+				},
+				"statistics": {
+					"description": "文本统计信息",
+					"type": "object"
+				}
+			},
+			"type": "object"
+		},
+		"supports_file_upload": true,
+		"version": "1.0.0"
+	}
+]
