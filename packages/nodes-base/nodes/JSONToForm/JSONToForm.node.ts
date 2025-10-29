@@ -15,6 +15,7 @@ export class JSONToForm implements INodeType {
 		this.description = {
 			displayName: '表单节点',
 			name: 'JSONToForm',
+			icon: 'file:n8n.svg',
 			group: ['transform'],
 			version: 1,
 			description: '根据前一个节点的输出动态生成参数的自定义节点',

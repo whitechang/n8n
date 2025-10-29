@@ -1,0 +1,126 @@
+{
+	"name": "textProcessor",
+	"displayName": "文本处理器",
+	"description": "强大的文本处理节点，支持多种文本操作和查找替换功能",
+	"version": "1.0.0",
+	"icon": "file:text-processor.svg",
+	"group": ["transform"],
+	"color": "#4CAF50",
+	"api_url": "http://127.0.0.1:5000/api/text-processor",
+	"supports_file_upload": true,
+	"input_schema": {
+		"type": "object",
+		"properties": {
+			"text": {
+				"type": "string",
+				"description": "要处理的文本",
+				"default": "Hello, World!",
+				"placeholder": "请输入要处理的文本...",
+				"required": true
+			},
+			"case_sensitive": {
+				"type": "boolean",
+				"description": "大小写敏感",
+				"default": true
+			},
+			"operations": {
+				"type": "array",
+				"description": "要执行的操作列表",
+				"default": ["uppercase"],
+				"items": {
+					"enum": [
+						"uppercase",
+						"lowercase",
+						"title",
+						"reverse",
+						"word_count",
+						"char_count",
+						"line_count"
+					]
+				}
+			},
+			"enable_find_replace": {
+				"type": "boolean",
+				"description": "是否启用查找替换功能",
+				"default": false
+			},
+			"find_replace": {
+				"type": "object",
+				"description": "查找替换配置",
+				"properties": {
+					"find": {
+						"type": "string",
+						"description": "要查找的文本",
+						"placeholder": "输入要查找的文本"
+					},
+					"replace": {
+						"type": "string",
+						"description": "替换为的文本",
+						"placeholder": "输入替换后的文本"
+					},
+					"use_regex": {
+						"type": "boolean",
+						"description": "是否使用正则表达式",
+						"default": false
+					}
+				},
+				"displayOptions": {
+					"show": {
+						"enable_find_replace": [true]
+					}
+				}
+			},
+			"output_format": {
+				"type": "string",
+				"description": "输出格式",
+				"default": "text",
+				"enum": ["text", "json", "html"]
+			},
+			"max_length": {
+				"type": "number",
+				"description": "最大文本长度",
+				"default": 10000,
+				"placeholder": "输入最大长度限制"
+			},
+			"encoding": {
+				"type": "string",
+				"description": "文本编码",
+				"default": "utf-8",
+				"enum": ["utf-8", "ascii", "latin1", "base64"]
+			}
+		},
+		"required": ["text"]
+	},
+	"output_schema": {
+		"type": "object",
+		"properties": {
+			"processed_text": {
+				"type": "string",
+				"description": "处理后的文本"
+			},
+			"operations_applied": {
+				"type": "array",
+				"description": "已应用的操作列表"
+			},
+			"replacements_made": {
+				"type": "number",
+				"description": "替换次数"
+			},
+			"statistics": {
+				"type": "object",
+				"description": "文本统计信息",
+				"properties": {
+					"word_count": {
+						"type": "number"
+					},
+					"char_count": {
+						"type": "number"
+					},
+					"line_count": {
+						"type": "number"
+					}
+				}
+			}
+		}
+	}
+}

@@ -8,20 +8,20 @@ import type {
 
 import { NodeOperationError } from 'n8n-workflow';
 
-export class MyCustomNode implements INodeType {
+export class ClassNameReplace implements INodeType {
 	description: INodeTypeDescription;
 
 	constructor() {
 		this.description = {
-			displayName: '我的自定义节点',
-			name: 'myCustomNode',
-			group: ['transform'],
-			version: 1,
-			description: '这是一个示例自定义节点',
+			displayName: 'DisplayNameReplace',
+			name: 'N8nNameReplace',
+			group: GroupReplace,
+			version: VersionReplace,
+			description: 'NodeDescriptionReplace',
 			subtitle: '={{$parameter["method"] + ": " + $parameter["url"]}}',
 			defaults: {
-				name: '我的自定义节点',
-				color: '#4CAF50',
+				name: 'DisplayNameReplace',
+				color: 'ColorReplace',
 			},
 			inputs: ['main'],
 			outputs: ['main'],
@@ -65,7 +65,7 @@ export class MyCustomNode implements INodeType {
 					displayName: '请求地址',
 					name: 'url',
 					type: 'string',
-					default: 'http://127.0.0.1:8080/api/process',
+					default: 'ApiUrlReplace',
 					placeholder: 'http://example.com/api/execute',
 					description: 'API 请求的完整 URL 地址',
 					required: true,
@@ -83,47 +83,7 @@ export class MyCustomNode implements INodeType {
 					type: 'notice',
 					default: '配置要发送到 API 的参数',
 				},
-				{
-					displayName: '输入文本',
-					name: 'inputText',
-					type: 'string',
-					default: '',
-					placeholder: '请输入要处理的文本...',
-					description: '输入文本',
-					required: true,
-				},
-				{
-					displayName: '操作类型',
-					name: 'operation',
-					type: 'options',
-					default: 'uppercase',
-					description: '操作类型',
-					options: [
-						{
-							name: 'Uppercase',
-							value: 'uppercase',
-						},
-						{
-							name: 'Lowercase',
-							value: 'lowercase',
-						},
-						{
-							name: 'Reverse',
-							value: 'reverse',
-						},
-						{
-							name: 'Trim',
-							value: 'trim',
-						},
-					],
-				},
-				{
-					displayName: '包含时间戳',
-					name: 'includeTimestamp',
-					type: 'boolean',
-					default: false,
-					description: '包含时间戳',
-				},
+				PROPERTIES_PLACEHOLDER,
 			],
 		};
 	}
@@ -140,12 +100,7 @@ export class MyCustomNode implements INodeType {
 
 				const requestBody: any = {};
 
-				const inputText = this.getNodeParameter('inputText', i, '');
-				requestBody.inputText = inputText;
-				const operation = this.getNodeParameter('operation', i, 'uppercase');
-				requestBody.operation = operation;
-				const includeTimestamp = this.getNodeParameter('includeTimestamp', i, false);
-				requestBody.includeTimestamp = includeTimestamp;
+				PARAMETER_EXTRACTION_PLACEHOLDER;
 
 				const response = await this.helpers.httpRequest({
 					method,

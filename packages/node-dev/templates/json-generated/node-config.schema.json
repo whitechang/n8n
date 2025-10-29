@@ -1,0 +1,176 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "N8N Node Configuration",
+	"description": "Configuration schema for generating N8N nodes from JSON",
+	"type": "object",
+	"required": ["name", "displayName", "description", "input_schema"],
+	"properties": {
+		"name": {
+			"type": "string",
+			"description": "节点的内部名称（用于代码生成）",
+			"pattern": "^[a-zA-Z][a-zA-Z0-9_]*$"
+		},
+		"displayName": {
+			"type": "string",
+			"description": "节点的显示名称"
+		},
+		"description": {
+			"type": "string",
+			"description": "节点的描述信息"
+		},
+		"version": {
+			"type": "string",
+			"description": "节点版本",
+			"default": "1.0.0"
+		},
+		"icon": {
+			"type": "string",
+			"description": "节点图标文件名",
+			"default": "file:n8n.svg"
+		},
+		"group": {
+			"type": "array",
+			"description": "节点分组",
+			"items": {
+				"type": "string"
+			},
+			"default": ["transform"]
+		},
+		"color": {
+			"type": "string",
+			"description": "节点颜色",
+			"default": "#4CAF50"
+		},
+		"api_url": {
+			"type": "string",
+			"description": "默认的 API 请求地址",
+			"default": "http://127.0.0.1:5000/api/execute"
+		},
+		"supports_file_upload": {
+			"type": "boolean",
+			"description": "是否支持文件上传",
+			"default": false
+		},
+		"input_schema": {
+			"type": "object",
+			"description": "输入参数的 JSON Schema",
+			"required": ["type", "properties"],
+			"properties": {
+				"type": {
+					"const": "object"
+				},
+				"properties": {
+					"type": "object",
+					"patternProperties": {
+						"^[a-zA-Z][a-zA-Z0-9_]*$": {
+							"$ref": "#/definitions/property"
+						}
+					}
+				},
+				"required": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"output_schema": {
+			"type": "object",
+			"description": "输出数据的 JSON Schema（可选）",
+			"properties": {
+				"type": {
+					"const": "object"
+				},
+				"properties": {
+					"type": "object"
+				}
+			}
+		}
+	},
+	"definitions": {
+		"property": {
+			"type": "object",
+			"required": ["type"],
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": ["string", "number", "integer", "boolean", "array", "object"]
+				},
+				"description": {
+					"type": "string",
+					"description": "字段描述"
+				},
+				"default": {
+					"description": "默认值"
+				},
+				"placeholder": {
+					"type": "string",
+					"description": "占位符文本"
+				},
+				"required": {
+					"type": "boolean",
+					"description": "是否必填",
+					"default": false
+				},
+				"enum": {
+					"type": "array",
+					"description": "枚举值列表（用于选择框）"
+				},
+				"items": {
+					"description": "数组项的定义（当 type 为 array 时）",
+					"oneOf": [
+						{
+							"$ref": "#/definitions/property"
+						},
+						{
+							"type": "object",
+							"properties": {
+								"enum": {
+									"type": "array"
+								}
+							}
+						}
+					]
+				},
+				"properties": {
+					"type": "object",
+					"description": "对象属性定义（当 type 为 object 时）",
+					"patternProperties": {
+						"^[a-zA-Z][a-zA-Z0-9_]*$": {
+							"$ref": "#/definitions/property"
+						}
+					}
+				},
+				"displayOptions": {
+					"type": "object",
+					"description": "显示条件配置",
+					"properties": {
+						"show": {
+							"type": "object",
+							"patternProperties": {
+								"^[a-zA-Z][a-zA-Z0-9_]*$": {
+									"type": "array",
+									"items": {
+										"oneOf": [{ "type": "string" }, { "type": "number" }, { "type": "boolean" }]
+									}
+								}
+							}
+						},
+						"hide": {
+							"type": "object",
+							"patternProperties": {
+								"^[a-zA-Z][a-zA-Z0-9_]*$": {
+									"type": "array",
+									"items": {
+										"oneOf": [{ "type": "string" }, { "type": "number" }, { "type": "boolean" }]
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

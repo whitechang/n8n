@@ -1,0 +1,87 @@
+{
+	"name": "textProcessor",
+	"displayName": "文本处理器",
+	"description": "强大的文本处理算子，支持多种文本操作",
+	"version": "1.0.0",
+	"icon": "file:text-processor.svg",
+	"group": ["transform"],
+	"color": "#4CAF50",
+	"api_url": "http://127.0.0.1:5000/api/execute",
+	"supports_file_upload": true,
+	"input_schema": {
+		"type": "object",
+		"properties": {
+			"text": {
+				"type": "string",
+				"description": "要处理的文本",
+				"default": "Hello, World!",
+				"placeholder": "请输入要处理的文本...",
+				"required": true
+			},
+			"case_sensitive": {
+				"type": "boolean",
+				"description": "大小写敏感",
+				"default": true
+			},
+			"operations": {
+				"type": "array",
+				"description": "要执行的操作列表",
+				"default": ["uppercase"],
+				"items": {
+					"enum": [
+						"uppercase",
+						"lowercase",
+						"title",
+						"reverse",
+						"word_count",
+						"char_count",
+						"line_count"
+					]
+				}
+			},
+			"find_replace": {
+				"type": "object",
+				"description": "查找替换配置",
+				"properties": {
+					"find": {
+						"type": "string",
+						"description": "要查找的文本",
+						"placeholder": "输入要查找的文本"
+					},
+					"replace": {
+						"type": "string",
+						"description": "替换为的文本",
+						"placeholder": "输入替换后的文本"
+					},
+					"use_regex": {
+						"type": "boolean",
+						"description": "是否使用正则表达式",
+						"default": false
+					}
+				}
+			}
+		},
+		"required": ["text"]
+	},
+	"output_schema": {
+		"type": "object",
+		"properties": {
+			"operations_applied": {
+				"type": "array",
+				"description": "已应用的操作"
+			},
+			"processed_text": {
+				"type": "string",
+				"description": "处理后的文本"
+			},
+			"replacements_made": {
+				"type": "integer",
+				"description": "替换次数"
+			},
+			"statistics": {
+				"type": "object",
+				"description": "文本统计信息"
+			}
+		}
+	}
+}

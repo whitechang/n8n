@@ -1,0 +1,7 @@
+{
+	"node": "n8n-nodes-NodeNameReplace",
+	"nodeVersion": "NodeVersionReplace",
+	"codexVersion": "1.0",
+	"categories": CategoriesReplace,
+	"resources": {}
+}

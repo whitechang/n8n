@@ -1,0 +1,32 @@
+{
+	"name": "myCustomNode",
+	"displayName": "我的自定义节点",
+	"description": "这是一个示例自定义节点",
+	"version": "1.0.0",
+	"group": ["transform"],
+	"color": "#4CAF50",
+	"api_url": "http://127.0.0.1:8080/api/process",
+	"input_schema": {
+		"type": "object",
+		"properties": {
+			"inputText": {
+				"type": "string",
+				"description": "输入文本",
+				"required": true,
+				"placeholder": "请输入要处理的文本..."
+			},
+			"operation": {
+				"type": "string",
+				"description": "操作类型",
+				"enum": ["uppercase", "lowercase", "reverse", "trim"],
+				"default": "uppercase"
+			},
+			"includeTimestamp": {
+				"type": "boolean",
+				"description": "包含时间戳",
+				"default": false
+			}
+		},
+		"required": ["inputText"]
+	}
+}
