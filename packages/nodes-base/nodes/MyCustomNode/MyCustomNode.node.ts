@@ -65,7 +65,7 @@ export class MyCustomNode implements INodeType {
 					displayName: '请求地址',
 					name: 'url',
 					type: 'string',
-					default: 'http://127.0.0.1:8080/api/process',
+					default: 'http://127.0.0.1:5000/api/execute',
 					placeholder: 'http://example.com/api/execute',
 					description: 'API 请求的完整 URL 地址',
 					required: true,
@@ -141,21 +141,23 @@ export class MyCustomNode implements INodeType {
 				const requestBody: any = {};
 
 				const inputText = this.getNodeParameter('inputText', i, '');
-				requestBody.inputText = inputText;
 				const operation = this.getNodeParameter('operation', i, 'uppercase');
-				requestBody.operation = operation;
 				const includeTimestamp = this.getNodeParameter('includeTimestamp', i, false);
-				requestBody.includeTimestamp = includeTimestamp;
+
+				const formdata = new FormData();
+				const json = {
+					input_text: inputText,
+					process_type: operation,
+					includeTimestamp: includeTimestamp,
+				};
+				formdata.append('json', JSON.stringify(json));
+				formdata.append('file', new Blob([], { type: 'application/json' }));
 
 				const response = await this.helpers.httpRequest({
 					method,
 					url,
-					body: requestBody,
-					json: true,
+					body: formdata,
 					timeout,
-					headers: {
-						'Content-Type': 'application/json',
-					},
 				});
 
 				returnData.push({
