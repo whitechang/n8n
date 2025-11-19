@@ -1,0 +1,4 @@
+{
+	"node": ["dist/nodes/TextProcessor/TextProcessor.node.js"],
+	"credentials": []
+}

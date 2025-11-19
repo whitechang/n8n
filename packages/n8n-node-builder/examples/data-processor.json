@@ -1,0 +1,52 @@
+{
+	"name": "dataProcessor",
+	"displayName": "数据处理器",
+	"description": "处理和转换数据",
+	"type": "http",
+	"apiUrl": "http://127.0.0.1:5000/api/process",
+	"color": "#4CAF50",
+	"group": ["transform"],
+	"properties": {
+		"inputData": {
+			"type": "string",
+			"displayName": "输入数据",
+			"description": "要处理的 JSON 数据",
+			"required": true,
+			"placeholder": "{\"key\": \"value\"}"
+		},
+		"processingMode": {
+			"type": "string",
+			"displayName": "处理模式",
+			"description": "选择数据处理模式",
+			"enum": ["transform", "filter", "aggregate", "validate"],
+			"default": "transform"
+		},
+		"outputFormat": {
+			"type": "string",
+			"displayName": "输出格式",
+			"description": "选择输出数据格式",
+			"enum": ["json", "xml", "csv"],
+			"default": "json"
+		},
+		"enableValidation": {
+			"type": "boolean",
+			"displayName": "启用验证",
+			"description": "是否对输入数据进行验证",
+			"default": true
+		},
+		"batchSize": {
+			"type": "integer",
+			"displayName": "批处理大小",
+			"description": "每批处理的记录数",
+			"default": 100
+		},
+		"tags": {
+			"type": "array",
+			"displayName": "标签",
+			"description": "为处理结果添加标签",
+			"items": {
+				"enum": ["important", "verified", "processed", "archived"]
+			}
+		}
+	}
+}

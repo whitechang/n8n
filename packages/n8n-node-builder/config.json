@@ -1,0 +1,80 @@
+{
+	"name": "textProcessor",
+	"displayName": "文本处理器",
+	"description": "强大的文本处理算子，支持多种文本操作",
+	"version": "1.0.0",
+	"icon": "file:text-processor.svg",
+	"group": ["transform"],
+	"color": "#4CAF50",
+	"api_url": "http://127.0.0.1:5000/api/execute",
+	"supports_file_upload": true,
+	"input_schema": {
+		"properties": {
+			"enable_logging": {
+				"default": false,
+				"description": "是否启用日志",
+				"type": "boolean",
+				"widget": {
+					"labelPosition": "right",
+					"style": {
+						"marginBottom": "10px"
+					},
+					"type": "checkbox"
+				}
+			},
+			"input_file": {
+				"description": "上传文件",
+				"format": "file",
+				"type": "string",
+				"widget": {
+					"accept": ".txt,.csv,.json,.xml,.xlsx,.pdf,.doc,.docx",
+					"buttonStyle": {
+						"size": "default",
+						"type": "primary"
+					},
+					"buttonText": "选择文件",
+					"maxFiles": 10,
+					"maxSize": "10MB",
+					"multiple": true,
+					"returnType": "path",
+					"showFileList": true,
+					"type": "file_upload"
+				}
+			},
+			"input_text": {
+				"default": "Hello World",
+				"description": "输入文本",
+				"type": "string"
+			},
+			"process_type": {
+				"default": "uppercase",
+				"description": "处理类型",
+				"enum": ["uppercase", "lowercase", "reverse", "length"],
+				"type": "string"
+			}
+		},
+		"required": ["input_text"],
+		"type": "object"
+	},
+	"output_schema": {
+		"properties": {
+			"logs": {
+				"description": "处理日志",
+				"type": "array"
+			},
+			"original_length": {
+				"description": "原始文本长度",
+				"type": "integer"
+			},
+			"processing_time": {
+				"description": "处理耗时（秒）",
+				"type": "number"
+			},
+			"result": {
+				"description": "处理结果",
+				"type": "string"
+			}
+		},
+		"type": "object"
+	}
+}

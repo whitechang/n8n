@@ -39,7 +39,8 @@
       "dist/nodes/N8nTrigger/N8nTrigger.node.js",
       "dist/nodes/Postgres/Postgres.node.js",
       "dist/nodes/Set/Set.node.js",
-      "dist/nodes/ManualTrigger/ManualTrigger.node.js"
+      "dist/nodes/ManualTrigger/ManualTrigger.node.js",
+      "dist/nodes/TextProcessor/TextProcessor.node.js"
     ]
   },
   "devDependencies": {

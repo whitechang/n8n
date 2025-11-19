@@ -1,0 +1,27 @@
+{
+  "name": "n8n-node-builder",
+  "version": "1.0.0",
+  "description": "Simple tool to generate n8n custom nodes from JSON configuration",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "generate": "node dist/index.js",
+    "clean": "rimraf dist output/*"
+  },
+  "keywords": [
+    "n8n",
+    "node",
+    "generator",
+    "workflow"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "change-case": "^5.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  }
+}
